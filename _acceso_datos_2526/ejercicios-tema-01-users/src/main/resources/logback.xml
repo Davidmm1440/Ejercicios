@@ -3,8 +3,7 @@
 	<!-- Appender para escribir logs en la consola -->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} -
-				%msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	<!-- Appender para escribir logs en un archivo -->
@@ -17,8 +16,7 @@
 			<maxHistory>30</maxHistory> <!-- Mantener archivos por 30 días -->
 		</rollingPolicy>
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} -
-				%msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	<!-- Configuración de nivel global -->
