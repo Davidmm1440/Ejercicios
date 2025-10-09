@@ -19,7 +19,7 @@ public class Test {
 	public static void main(String[] args) {
 		
 		try {
-			URI url = new URI("https://crudcrud.com/api/4809d5b2b35e4a9486e026c6dea0b8ef/videojuego");
+			URI url = new URI("https://crudcrud.com/api/d4b0a621b4f84122a6273446c781345a/videojuego");
 			
 			VideoJuego v1 = new VideoJuego();
 			v1.setNombre("Mario Kart Wii");
@@ -30,18 +30,6 @@ public class Test {
 			String json = new Gson().toJson(v1);
 			System.out.println("Request body: " + json);
 			
-			HttpClient client2 = HttpClient.newHttpClient();
-			HttpRequest request2 = HttpRequest.newBuilder(url)
-					.setHeader("Content-Type", "application/json")
-					.POST(BodyPublishers.ofString(json))
-					.build();
-			
-			HttpResponse<String> response2 = client2.send(request2, BodyHandlers.ofString());
-			System.out.println(response2.statusCode());
-			System.out.println(response2.body());
-			VideoJuego videojuegoAnadido = new Gson().fromJson(response2.body(), VideoJuego.class);
-			System.out.println("Videojuego creado " + videojuegoAnadido);
-
 			HttpClient client1 = HttpClient.newHttpClient();
 			HttpRequest request1 = HttpRequest.newBuilder(url).GET().build();
 			
@@ -52,6 +40,20 @@ public class Test {
 			VideoJuego[] videojuegos = new Gson().fromJson(response.body(), VideoJuego[].class);
 			List<VideoJuego> listaVideojuegos = Arrays.asList(videojuegos);
 			listaVideojuegos.forEach(System.out::println);
+			
+//			HttpClient client2 = HttpClient.newHttpClient();
+//			HttpRequest request2 = HttpRequest.newBuilder(url)
+//					.setHeader("Content-Type", "application/json")
+//					.POST(BodyPublishers.ofString(json))
+//					.build();
+//			
+//			HttpResponse<String> response2 = client2.send(request2, BodyHandlers.ofString());
+//			System.out.println(response2.statusCode());
+//			System.out.println(response2.body());
+//			VideoJuego videojuegoAnadido = new Gson().fromJson(response2.body(), VideoJuego.class);
+//			System.out.println("Videojuego creado " + videojuegoAnadido);
+
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
