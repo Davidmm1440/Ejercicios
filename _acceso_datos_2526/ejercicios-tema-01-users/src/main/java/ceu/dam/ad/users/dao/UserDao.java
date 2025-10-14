@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,7 +114,11 @@ public class UserDao {
 		Date date = rs.getDate("fecha_alta");
 		u.setCreatedDate(date.toLocalDate());
 		Date date2 = rs.getDate("fecha_ult_login");
-		u.setLastLoginDate(date2.toLocalDate());
+		if (date2 != null) {
+			u.setLastLoginDate(date2.toLocalDate());
+			u.setLastLoginDate(LocalDate.now());
+		}
+		u.setLastLoginDate(null);
 		return u;
 	}
 

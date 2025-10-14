@@ -40,14 +40,15 @@ public class UserServiceImpl extends Service implements UserService {
 			throws UserNotFoundException, UserUnauthorizedException, UserException {
 
 		try (Connection conn = abrirConexionGalleta()) {
-			if (uDao.getById(conn, idUser) == null) {
+			User usuario = uDao.getById(conn, idUser);
+			if (usuario == null) {
 				throw new UserNotFoundException();
 			}
 			if (oldPassword.equals(newPassword)) {
 				throw new UserUnauthorizedException();
 			}
-			User usuario = uDao.getById(conn, idUser);
-			if (!usuario.getPassword().equals(oldPassword)) {
+
+			if (!usuario.getPassword().equals(DigestUtils.sha3_256Hex(oldPassword))) {
 				throw new UserUnauthorizedException();
 			}
 			usuario.setPassword(DigestUtils.sha3_256Hex(newPassword));
@@ -98,7 +99,7 @@ public class UserServiceImpl extends Service implements UserService {
 		} catch (SQLException e) {
 			throw new UserException(e);
 		}
-		
+
 	}
 
 }
