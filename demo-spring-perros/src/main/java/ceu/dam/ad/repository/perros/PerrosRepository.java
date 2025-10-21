@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import ceu.dam.ad.model.Perro;
 import java.util.List;
 
-
 @Repository
-public interface PerrosRepository extends JpaRepository<Perro, Long>{
+public interface PerrosRepository extends JpaRepository<Perro, Long> {
 	List<Perro> findByPerroNameContains(String filtroNombre);
+	List<Perro> findByPerroNameAndRaza(String perroName, String raza);
 }
+
+	

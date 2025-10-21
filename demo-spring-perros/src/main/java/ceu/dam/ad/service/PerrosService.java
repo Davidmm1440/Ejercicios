@@ -8,36 +8,46 @@ import org.springframework.stereotype.Service;
 
 import ceu.dam.ad.model.Perro;
 import ceu.dam.ad.repository.perros.PerrosRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PerrosService {
-	
+
 	@Autowired
 	private PerrosRepository repo;
-	
+
 	public Perro crearPerro(Perro perro) {
 		return repo.save(perro);
 	}
-	
+
+	@Transactional
+	public void crearPerros(List<Perro> perros) {
+		perros.forEach(p -> repo.save(p));
+		// repo.saveAll(perros); no necesita @Transactional
+	}
+
 	public Perro consultarPerro(Long id) throws NotFoundException {
 
-		
 		Optional<Perro> opcionalPerro = repo.findById(id);
-		
+
 //		return opcionalPerro.orElseThrow(()-> new NotFoundException("No existe el perro"));
-		
+
 		if (opcionalPerro.isPresent()) {
 			return opcionalPerro.get();
 		}
 		throw new NotFoundException("No existe el perro");
 	}
-	
-	public List<Perro> getAll(){
+
+	public List<Perro> getAll() {
 		return repo.findAll();
 	}
-	
-	public List<Perro> encontrarPerros(String filtroNombre){
+
+	public List<Perro> encontrarPerros(String filtroNombre) {
 		return repo.findByPerroNameContains(filtroNombre);
-		
+
+	}
+	
+	public List<Perro> encontarPorNombreyRaza(String nombre, String raza){
+		return repo.findByPerroNameAndRaza(nombre, raza);
 	}
 }

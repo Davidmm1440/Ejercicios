@@ -15,9 +15,9 @@ public class DemoSpringPerrosApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(DemoSpringPerrosApplication.class, args);
-		
+
 		PerrosService service = context.getBean(PerrosService.class);
-		
+
 //		Perro p = new Perro();
 //		p.setColor("negro");
 //		p.setPerroName("Coquito");
@@ -25,17 +25,17 @@ public class DemoSpringPerrosApplication {
 //		
 //		Perro perroCreado = service.crearPerro(p);
 //		System.out.println(perroCreado);
-		
+
 		try {
 			Perro p2 = service.consultarPerro(1L);
 			System.out.println(p2);
 		} catch (NotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		List<Perro> listaPerros = service.getAll();
 		listaPerros.forEach(System.out::println);
-		
+
 		List<Perro> listaPerrosCoco = service.encontrarPerros("Coco");
 		listaPerrosCoco.forEach(System.out::println);
 	}
