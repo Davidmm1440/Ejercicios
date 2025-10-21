@@ -1,45 +1,34 @@
 package ceu.dam.ad.tema3.ejercicios.ejercicio01.services;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import ceu.dam.ad.tema3.ejercicios.ejercicio01.model.Pelicula;
-import ceu.dam.ad.tema3.ejercicios.ejercicio01.repository.PeliculasDao;
+import ceu.dam.ad.tema3.ejercicios.ejercicio01.repository.PeliculasRepository;
 
+@Service
 public class PeliculasService {
 
-	private static final Logger log = LoggerFactory.getLogger(PeliculasService.class);
-	
-	private PeliculasDao dao;
-	
-	public PeliculasService() {
-		dao = new PeliculasDao();
-	}
-	
-	
+	@Autowired
+	private PeliculasRepository repo;
+
+//	private static final Logger log = LoggerFactory.getLogger(PeliculasService.class);
+
 	public List<Pelicula> consultarPeliculas() throws PeliculasException {
 		return consultarPeliculas(100);
 	}
 
 	public List<Pelicula> consultarPeliculas(Integer longitud) throws PeliculasException {
-		try (Connection conn = null){
-			return dao.consultarPeliculas(conn)
-					.stream()
-					.filter(p -> p.getLongitud() < longitud)
-					.toList();
-		} 
-		catch (SQLException e) {
-			System.err.println("Error al consultar peliculas");
+		try {
+			return repo.findAll().stream().filter(p -> p.getLongitud() < longitud).toList();
+		} catch (DataAccessException e) {
 			throw new PeliculasException("Error al consultar peliculas en BBDD", e);
-
 		}
-
 	}
-
-
 
 }
