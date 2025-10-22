@@ -15,7 +15,7 @@ public class PedidoLineaDao {
 		String sql = "insert into pedidos_lineas (id_pedido, numero_linea, articulo, precio) values (?,?,?,?)";
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setLong(1, linea.getIdPedido());
-			stmt.setInt(2, linea.getNumLinea());
+			stmt.setInt(2, linea.getNumeroLinea());
 			stmt.setString(3, linea.getArticulo());
 			stmt.setBigDecimal(4, linea.getPrecio());
 			stmt.execute();
@@ -32,7 +32,7 @@ public class PedidoLineaDao {
 				PedidoLinea linea = new PedidoLinea();
 				linea.setArticulo(rs.getString("articulo"));
 				linea.setPrecio(rs.getBigDecimal("precio"));
-				linea.setNumLinea(rs.getInt("numero_linea"));
+				linea.setNumeroLinea(rs.getInt("numero_linea"));
 				linea.setIdPedido(idPedido);
 				lineas.add(linea);
 			}

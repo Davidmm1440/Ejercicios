@@ -1,8 +1,11 @@
 package ceu.dam.ad.tema3.ejercicios.ejercicio02.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ClientesRepository {
+import ceu.dam.ad.tema3.ejercicios.ejercicio02.model.Cliente;
 
+@Repository
+public interface ClientesRepository extends JpaRepository<Cliente, Integer>{
+	
 }

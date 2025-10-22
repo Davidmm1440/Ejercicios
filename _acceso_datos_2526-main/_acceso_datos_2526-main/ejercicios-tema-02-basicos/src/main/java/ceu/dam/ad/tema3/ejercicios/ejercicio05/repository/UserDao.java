@@ -17,8 +17,8 @@ public class UserDao {
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getPassword());
 			stmt.setString(3, user.getEmail());
-			stmt.setDate(4, Date.valueOf(user.getCreatedDate()));
-			stmt.setDate(5, user.getLastLoginDate() == null ? null : Date.valueOf(user.getLastLoginDate()));
+			stmt.setDate(4, Date.valueOf(user.getFechaAlta()));
+			stmt.setDate(5, user.getFechaUltLogin() == null ? null : Date.valueOf(user.getFechaUltLogin()));
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
 			rs.next();
@@ -60,8 +60,8 @@ public class UserDao {
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getPassword());
 			stmt.setString(3, user.getEmail());
-			stmt.setDate(4, Date.valueOf(user.getCreatedDate()));
-			stmt.setDate(5, Date.valueOf(user.getLastLoginDate()));
+			stmt.setDate(4, Date.valueOf(user.getFechaAlta()));
+			stmt.setDate(5, Date.valueOf(user.getFechaUltLogin()));
 			stmt.setLong(6, user.getId());
 			return stmt.executeUpdate();
 		}
@@ -75,8 +75,8 @@ public class UserDao {
 			u.setUsername(rs.getString("username"));
 			u.setEmail(rs.getString("email"));
 			u.setPassword(rs.getString("password"));
-			u.setCreatedDate(rs.getDate("fecha_alta")==null ? null : rs.getDate("fecha_alta").toLocalDate());
-			u.setLastLoginDate(rs.getDate("fecha_ult_login")==null ? null : rs.getDate("fecha_ult_login").toLocalDate());
+			u.setFechaAlta(rs.getDate("fecha_alta")==null ? null : rs.getDate("fecha_alta").toLocalDate());
+			u.setFechaUltLogin(rs.getDate("fecha_ult_login")==null ? null : rs.getDate("fecha_ult_login").toLocalDate());
 			return u;
 		}
 		return null;
