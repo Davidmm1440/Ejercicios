@@ -3,6 +3,7 @@ import ceu.dam.ad.tema3.ejercicios.ejercicio01.test.TestEj1;
 import ceu.dam.ad.tema3.ejercicios.ejercicio02.test.TestEj2;
 import ceu.dam.ad.tema3.ejercicios.ejercicio03.test.TestEj3;
 import ceu.dam.ad.tema3.ejercicios.ejercicio04.test.TestEj4;
+import ceu.dam.ad.tema3.ejercicios.ejercicio05.test.TestEj5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +25,10 @@ public class App {
 		//test3.test();
 		
 		TestEj4 test4 = context.getBean(TestEj4.class);
-		test4.test();
+		//test4.test();
+		
+		TestEj5 test5 = context.getBean(TestEj5.class);
+		test5.test();
 		
 		
 		
