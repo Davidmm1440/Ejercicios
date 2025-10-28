@@ -56,17 +56,18 @@ public class UserServiceImpl implements UserService {
 				log.debug("Pass antigua igual a la nueva, no se hará el cambio ");
 				throw new UserUnauthorizedException("La password nueva no puede ser igual a la antigua");
 			}
-			if (repo.findById(idUser).isEmpty()) {
+			Optional<User> usuario = repo.findById(idUser);
+			if (usuario.isEmpty()) {
 				log.warn("El usuario indicado no existe. ID " + idUser);
 				throw new UserNotFoundException("No existe usuario con id " + idUser);
 			}
 			String passwordCipherOld = DigestUtils.sha256Hex(oldPassword);
-			if (!repo.findById(idUser).get().getPassword().equals(passwordCipherOld)) {
+			if (!usuario.get().getPassword().equals(passwordCipherOld)) {
 				log.debug("Pass indicada para cambio incorrecta ");
 				throw new UserUnauthorizedException("El password no es correcto");
 			}
 			String passwordCipherNew = DigestUtils.sha256Hex(newPassword);
-			User userActualizado = repo.findById(idUser).get();
+			User userActualizado = usuario.get();
 			userActualizado.setPassword(passwordCipherNew);
 			repo.save(userActualizado);
 			log.debug("Password cambiada con exito");
