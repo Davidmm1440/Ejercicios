@@ -1,9 +1,10 @@
-package ceu.dam.ad.api;
+package ceu.dam.ad.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ceu.dam.ad.dto.request.PostreRequestDto;
+import ceu.dam.ad.dto.response.PostreResponseDto;
 import ceu.dam.ad.model.Postre;
 
 @RestController
 @RequestMapping("/postre")
-public class PostresService {
+public class PostresController {
+	
+//	@Autowired
+//	private ModelMapper mapper;
 
 	@GetMapping("/{id}")
 	public Postre getById(@PathVariable Long id) {
 		return new Postre(id, "Queso", new BigDecimal(10), "Tarta de queso", true);
 	}
 
-	@PostMapping
-	public Postre create(@RequestBody Postre postre) {
-		postre.setId(638L);
-		return postre;
+	@PostMapping()
+	public PostreResponseDto create(@RequestBody PostreRequestDto postreDto) {
+		
+		// Obtenemos Entity desde RequestDto 
+		Postre postreEntity = new ModelMapper().map(postreDto, Postre.class);
+		// Llamar al servicio para insertar pasando el entity
+		postreEntity.setId(888L);
+		// Obtenemos ResponseDto desde entity
+		return new ModelMapper().map(postreEntity, PostreResponseDto.class);
 	}
 
 	@GetMapping

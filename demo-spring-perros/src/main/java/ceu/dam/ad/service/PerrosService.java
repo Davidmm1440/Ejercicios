@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ceu.dam.ad.model.Perro;
+import ceu.dam.ad.model.Persona;
 import ceu.dam.ad.repository.perros.PerrosRepository;
+import ceu.dam.ad.repository.perros.PersonaRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -15,9 +17,28 @@ public class PerrosService {
 
 	@Autowired
 	private PerrosRepository repo;
+	@Autowired
+	private PersonaRepository repoP;
+	
+	@Transactional
+	public Persona crearPersona(Persona persona) {
+		return repoP.save(persona);
+	}
 
 	public Perro crearPerro(Perro perro) {
 		return repo.save(perro);
+	}
+	
+	public Persona consultarPersona(Long id) throws NotFoundException {
+
+		Optional<Persona> opcionalPersona = repoP.findById(id);
+
+//		return opcionalPerro.orElseThrow(()-> new NotFoundException("No existe el perro"));
+
+		if (opcionalPersona.isPresent()) {
+			return opcionalPersona.get();
+		}
+		throw new NotFoundException("No existe la persona");
 	}
 
 	@Transactional

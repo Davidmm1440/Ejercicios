@@ -20,8 +20,16 @@ public class Perro {
 
 	@Column(name = "nombre")
 	private String perroName;
+	
+	private String numChip;
 
 	private String raza;
+	
+	private Boolean vacunado;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "id_persona")
+//	private Persona persona;
 
 	@Transient
 	private String color;
