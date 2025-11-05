@@ -27,15 +27,17 @@ public class Persona {
 	private String dni;
 	private String nombre;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_persona", nullable = false)
-	private List<Perro> perros;
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_persona", nullable = false)
+//	private List<Perro> perros;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_domicilio", nullable = false)
 	private Domicilio domicilio;
 	
-	
+	@OneToMany(mappedBy = "persona", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_persona", nullable = false)
+	private List<Perro> perros;
 	
 	
 	
@@ -45,7 +47,5 @@ public class Persona {
 //	private String dni;
 //	private String nombre;
 //	
-//	@OneToMany(mappedBy = "persona")
-//	private List<Perro> perros;
 
 }

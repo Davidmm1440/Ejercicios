@@ -31,7 +31,7 @@ public class DemoSpringPerrosApplication {
 			persona.setDni("12345678B");
 			persona.setNombre("Blas de los Montes");
 			persona.setPerros(new ArrayList<Perro>());
-			persona.setDomicilio(new Domicilio(null, "Calle Jandula", 2));
+//			persona.setDomicilio(new Domicilio(null, "Calle Jandula", 2));
 			for (int i = 1; i <= 3; i++) {
 				Perro p = new Perro();
 				p.setPerroName("Perro" + i);

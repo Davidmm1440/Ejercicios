@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
@@ -27,9 +29,9 @@ public class Perro {
 	
 	private Boolean vacunado;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "id_persona")
-//	private Persona persona;
+	@ManyToOne
+	@JoinColumn(name = "id_persona")
+	private Persona persona;
 
 	@Transient
 	private String color;
