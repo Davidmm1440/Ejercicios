@@ -1,14 +1,11 @@
 package ceu.dam.ad.users.dto.request;
 
-
 import lombok.Data;
 
 @Data
-public class UserRequestDTO {
+public class UserLoginRequestDTO {
 
-
-	private String username;
-	private String email;
+	private String login;
 	private String password;
-	
+
 }
