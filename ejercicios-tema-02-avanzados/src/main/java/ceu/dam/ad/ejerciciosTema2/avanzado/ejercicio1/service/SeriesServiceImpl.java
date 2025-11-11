@@ -22,7 +22,8 @@ public class SeriesServiceImpl implements SeriesService {
 
 		try {
 			Optional<Serie> opcionalSerie = repoS.findById(idSerie);
-			return opcionalSerie.orElseThrow(() -> new SerieNotFoundException("La serie no existe"));
+			return opcionalSerie
+					.orElseThrow(() -> new SerieNotFoundException("La serie con id " + idSerie + " no existe"));
 		} catch (DataAccessException e) {
 			throw new SeriesServiceException("Error", e);
 		}
