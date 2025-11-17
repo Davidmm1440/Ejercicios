@@ -32,7 +32,8 @@ public class UserController {
 	private UserService service;
 
 	@PostMapping()
-	public UserResponseDTO create(@RequestBody UserRequestDTO userDTO) throws DuplicateUserException, UserException {
+	public UserResponseDTO create(@Valid @RequestBody UserRequestDTO userDTO)
+			throws DuplicateUserException, UserException {
 		User userEntity = new ModelMapper().map(userDTO, User.class);
 		userEntity = service.createUser(userEntity);
 		return new ModelMapper().map(userEntity, UserResponseDTO.class);
@@ -45,12 +46,12 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public UserLoginResponseDTO login(@RequestBody UserLoginRequestDTO request)
+	public UserLoginResponseDTO login(@Valid @RequestBody UserLoginRequestDTO request)
 			throws UserNotFoundException, UserUnauthorizedException, UserException {
 		User user = service.login(request.getLogin(), request.getPassword());
 		return new ModelMapper().map(user, UserLoginResponseDTO.class);
 	}
-	
+
 	@GetMapping("/{id}")
 	public UserGetByIdResponseDTO getById(@PathVariable Long id) throws UserNotFoundException, UserException {
 		User user = service.getUser(id);

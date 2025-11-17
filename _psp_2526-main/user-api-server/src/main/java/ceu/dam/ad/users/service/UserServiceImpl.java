@@ -18,7 +18,7 @@ import ceu.dam.ad.users.model.User;
 import ceu.dam.ad.users.repository.UserRepository;
 
 @Service
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl implements UserService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -61,7 +61,7 @@ public class UserServiceImpl  implements UserService {
 	public void changePassword(Long idUser, String oldPassword, String newPassword)
 			throws UserNotFoundException, UserUnauthorizedException, UserException {
 		log.debug("Actualizacion password de usuario con id: " + idUser);
-		try  {
+		try {
 			// 0. Comprobar que password sean diferentes
 			if (newPassword.equals(oldPassword)) {
 				log.debug("Pass antigua igual a la nueva, no se hará el cambio ");
@@ -75,19 +75,19 @@ public class UserServiceImpl  implements UserService {
 				throw new UserNotFoundException("No existe usuario con id " + idUser);
 			}
 			User user = userOpt.get();
-			
+
 			// 2. Comprobamos password antigua
 			String passwordCipherOld = DigestUtils.sha256Hex(oldPassword);
 			if (!user.getPassword().equals(passwordCipherOld)) {
 				log.debug("Pass indicada para cambio incorrecta ");
 				throw new UserUnauthorizedException("El password no es correcto");
 			}
-			
+
 			String passwordCipherNew = DigestUtils.sha256Hex(newPassword);
 			user.setPassword(passwordCipherNew);
 			repository.save(user);
 			log.debug("Password cambiada con exito");
-			
+
 		} catch (DataAccessException e) {
 			log.error("Error actualizando pass de usuario ", e);
 			throw new UserException("Error actualizando usuario", e);
@@ -98,7 +98,7 @@ public class UserServiceImpl  implements UserService {
 	public User login(String login, String password)
 			throws UserNotFoundException, UserUnauthorizedException, UserException {
 		log.debug("Realizando login con usuario " + login);
-		try  {
+		try {
 			// 1. Comprobar si existe login como username o como email
 			log.debug("Intentando login por email...");
 			Optional<User> userOpt = repository.findOneByEmail(login);
@@ -111,43 +111,42 @@ public class UserServiceImpl  implements UserService {
 				throw new UserNotFoundException("No existe usuario con el login indicado");
 			}
 			User user = userOpt.get();
-			
+
 			// 2. Comprobar password cifrándola previamente
 			String passwordCipher = DigestUtils.sha256Hex(password);
 			if (!user.getPassword().equals(passwordCipher)) {
 				log.debug("Password incorrecta");
 				throw new UserUnauthorizedException("Password de usuario incorrecta");
 			}
-			
+
 			// 3. Actualizamos fecha último login
 			try {
 				log.debug("Actualizando fecha de último login");
 				user.setLastLoginDate(LocalDate.now());
 				repository.save(user);
-			}
-			catch(DataAccessException e) {
+			} catch (DataAccessException e) {
 				log.error("Error actualizando fecha último login del usuario ", e);
 			}
 			log.debug("Login correcto");
 			return user;
-			
-		}catch (DataAccessException e) {
+
+		} catch (DataAccessException e) {
 			log.error("Error actualizando pass de usuario ", e);
 			throw new UserException("Error actualizando usuario", e);
 		}
-		
+
 	}
 
 	@Override
 	public User getUser(Long idUser) throws UserNotFoundException, UserException {
 		log.debug("Consultando usuario con id " + idUser);
-		try  {
+		try {
 			Optional<User> userOpt = repository.findById(idUser);
 			if (userOpt.isEmpty()) {
 				throw new UserNotFoundException("No existe usuario con el id indicado");
 			}
 			return userOpt.get();
-		}catch (DataAccessException e) {
+		} catch (DataAccessException e) {
 			log.error("Error actualizando pass de usuario ", e);
 			throw new UserException("Error actualizando usuario", e);
 		}
