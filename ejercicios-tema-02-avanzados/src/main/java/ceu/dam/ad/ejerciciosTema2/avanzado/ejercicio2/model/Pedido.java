@@ -27,16 +27,58 @@ public class Pedido {
 	@JdbcTypeCode(java.sql.Types.VARCHAR)
 	@Column(name = "uuid_pedido")
 	private UUID uidPedido;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "dni_cliente")
 	private Cliente cliente;
-	
+
 	private Date fecha;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "uuid_pedido")
+	@JoinColumn(name = "uuid_pedido", nullable = false)
 	private List<PedidoLinea> lineas;
+
+	public UUID getUidPedido() {
+		return uidPedido;
+	}
+
+	public void setUidPedido(UUID uidPedido) {
+		this.uidPedido = uidPedido;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public List<PedidoLinea> getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(List<PedidoLinea> lineas) {
+		this.lineas = lineas;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [uidPedido=" + uidPedido + ", fecha=" + fecha + ", lineas=" + lineas + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(uidPedido);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -47,20 +89,7 @@ public class Pedido {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(lineas, other.lineas)
-				&& Objects.equals(uidPedido, other.uidPedido);
+		return Objects.equals(uidPedido, other.uidPedido);
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(fecha, lineas, uidPedido);
-	}
-
-	@Override
-	public String toString() {
-		return "Pedido [uidPedido=" + uidPedido + ", fecha=" + fecha + ", lineas=" + lineas + "]";
-	}
-
-	
 
 }

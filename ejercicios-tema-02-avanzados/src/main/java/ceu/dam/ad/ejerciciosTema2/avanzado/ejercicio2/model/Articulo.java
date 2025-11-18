@@ -20,4 +20,27 @@ public class Articulo {
 	private String codBarras;
 
 
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public String getCodBarras() {
+		return codBarras;
+	}
+	public void setCodBarras(String codBarras) {
+		this.codBarras = codBarras;
+	}
+	@Override
+	public String toString() {
+		return "Articulo [id=" + id + ", descripcion=" + descripcion + ", codBarras=" + codBarras + "]";
+	}
+	
 }
