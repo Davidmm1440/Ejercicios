@@ -1,12 +1,28 @@
 package ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo;
 
+import java.sql.Types;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Data
+@Entity
 public class CentroComercial {
 
+	@Id
+	@GeneratedValue
+	@JdbcTypeCode(value = Types.VARCHAR)
+	@Column(name = "uuid_centro")
 	private UUID id;
 
+	@Column(name = "nombre_comercial")
 	private String nombre;
 
 	private String direccion;

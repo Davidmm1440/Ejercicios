@@ -2,8 +2,17 @@ package ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "marcas")
 public class Marca {
 
+	@Id
 	private String codigo;
 
 	private String nombreComercial;
