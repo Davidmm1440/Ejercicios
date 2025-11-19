@@ -1,5 +1,6 @@
 package ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio2.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,17 @@ public class PedidosClientesServiceImpl implements PedidosClientesService {
 		} catch (DataAccessException e) {
 			throw new PedidosClientesServiceException("Error", e);		
 		}
+	}
+	
+	/** Consulta todos los pedidos que incluyan alguna línea donde se haya comprado el artículo con la descripción indicada
+	 * Si no hay ningún pedido, se lanzará NotFoundException. */
+	public List<Pedido> consultarPedidosByArticulo(String descripcionArticulo)	throws PedidosClientesServiceException, NotFoundException {
+		List<Pedido> listaPedidos = repoP.findByLineasArticuloDescripcionEquals(descripcionArticulo);
+		if (listaPedidos.isEmpty()) {
+			throw new NotFoundException("Pedidos con descripcion de articulo: " + descripcionArticulo);
+		}
+		return listaPedidos;
+		
 	}
 
 }

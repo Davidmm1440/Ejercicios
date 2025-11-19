@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio2.model.Pedido;
+import java.util.List;
+
 
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, UUID> {
-	
+	List<Pedido> findByLineasArticuloDescripcionEquals(String desc);
 }

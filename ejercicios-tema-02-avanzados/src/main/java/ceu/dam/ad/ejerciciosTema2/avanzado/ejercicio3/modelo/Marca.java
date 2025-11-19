@@ -4,6 +4,10 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -17,8 +21,14 @@ public class Marca {
 
 	private String nombreComercial;
 
+	@OneToOne
+	@JoinColumn(name = "cod_pais")
 	private Pais pais;
 
+	@ManyToMany
+	@JoinTable(name = "centro_comercial_marcas",
+	joinColumns = {@JoinColumn(name = "cod_marca") },
+	inverseJoinColumns = {@JoinColumn(name = "uuid_centro")})
 	private List<CentroComercial> centrosComerciales;
 
 	public Marca() {

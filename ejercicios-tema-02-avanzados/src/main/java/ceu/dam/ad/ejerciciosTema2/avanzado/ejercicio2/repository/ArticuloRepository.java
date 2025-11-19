@@ -7,6 +7,7 @@ import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio2.model.Articulo;
 import java.util.Optional;
 
 
+
 @Repository
 public interface ArticuloRepository extends JpaRepository<Articulo, Long>{
 	Optional<Articulo> findById(Long id);

@@ -5,16 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo.CentroComercial;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo.Marca;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo.Pais;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.modelo.Tienda;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.service.ComercialException;
-import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.service.ComercialService;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.service.ComercialServiceImpl;
 import ceu.dam.ad.ejerciciosTema2.avanzado.ejercicio3.service.NotFoundException;
 
+@Component
 public class Test3 {
+	
+	@Autowired
+	private ComercialServiceImpl service;
 	// CADA VEZ QUE EJECUTES EL TEST, PASA ESTE SCRIPT EN BBDD:
 //	DELETE FROM centro_comercial_marcas;
 //	DELETE FROM tiendas;
@@ -22,7 +28,6 @@ public class Test3 {
 //	DELETE FROM marcas;
 
 	public void test() {
-		ComercialService service = new ComercialServiceImpl();
 		Scanner sc = new Scanner(System.in);
 		Pais paisUS = null;
 		Pais paisES = null;
@@ -144,7 +149,7 @@ public class Test3 {
 
 			System.out.println(">> Probamos a consultar tienda....");
 			try {
-				tiendaTest = service.consularTienda(tiendaTest.getId());
+				tiendaTest = service.consultarTienda(tiendaTest.getId());
 				System.out.println(">> Tienda obtenida: " + tiendaTest);
 
 				try {
@@ -175,7 +180,7 @@ public class Test3 {
 			try {
 				service.borrarTienda(tiendaTest.getId());
 				try {
-					tiendaTest = service.consularTienda(tiendaTest.getId());
+					tiendaTest = service.consultarTienda(tiendaTest.getId());
 					System.out.println(
 							">> No funciona borrar tienda porque después de borrar estoy consultando y no me lanza NotFound. Mira el error e intenta de nuevo.");
 					return;
