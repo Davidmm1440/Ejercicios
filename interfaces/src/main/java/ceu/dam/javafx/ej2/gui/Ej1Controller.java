@@ -1,12 +1,13 @@
 package ceu.dam.javafx.ej2.gui;
 
+import ceu.dam.javafx.ej2.app.FXMLPaths;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class Ej1Controller {
+public class Ej1Controller extends AppController{
 
 	@FXML
 	private TextField tfUsuario;
@@ -33,8 +34,7 @@ public class Ej1Controller {
 		String passwordB = "pass";
 
 		if (usuario.equals(usuarioB) && password.equals(passwordB)) {
-			labelResultado.setText("Login Correcto");
-			labelResultado.setStyle("-fx-text-fill: green;");
+			cambiarVista(FXMLPaths.MENU);
 		} else {
 			labelResultado.setText("Login Incorrecto");
 			labelResultado.setStyle("-fx-text-fill: red;");

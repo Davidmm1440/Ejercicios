@@ -10,7 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import lombok.extern.log4j.Log4j2;
+
 @RestControllerAdvice
+@Log4j2
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(UserNotFoundException.class)
@@ -41,6 +44,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> handle(Exception e) {
+		log.error("Error inesperado del servidor. Consulte el log si tiene acceso", e);
 		return ResponseEntity.internalServerError().body("Error inesperado del servidor. Consulte el log si tiene acceso" + e.getMessage());
 	}
 	
