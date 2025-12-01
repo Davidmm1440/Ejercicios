@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ceu.dam.psp.PostresApiServerApplication;
 import ceu.dam.psp.model.Postre;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/postre")
+@SecurityRequirement(name = "ApiKeyAutentication")
 public class PostresService {
 
     private final PostresApiServerApplication postresApiServerApplication;
