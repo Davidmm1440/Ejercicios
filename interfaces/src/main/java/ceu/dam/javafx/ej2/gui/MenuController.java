@@ -17,6 +17,12 @@ public class MenuController extends AppController {
 		Parent vista = cargarVista(FXMLPaths.COMBOBOX);
 		borderPanel.setCenter(vista);
 	}
+	
+	@FXML
+	public void cargarDatePicker(ActionEvent e) {
+		Parent vista = cargarVista(FXMLPaths.DATEPICKER);
+		borderPanel.setCenter(vista);
+	}
 
 	@FXML
 	public void logOut(ActionEvent e) {
